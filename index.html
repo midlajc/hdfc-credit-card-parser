@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HDFC Statement Parser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <h1>HDFC Credit Card Statement Parser</h1>
+        <p class="lede">
+          Drop your statement PDF to instantly generate a CSV.
+        </p>
+      </section>
+
+      <section class="card">
+        <div
+          id="dropzone"
+          class="dropzone"
+          role="button"
+          tabindex="0"
+          aria-label="Upload statement PDF"
+        >
+          <input id="file-input" type="file" accept="application/pdf" multiple />
+          <div class="dropzone-content">
+            <div class="dropzone-icon">PDF</div>
+            <div>
+              <p class="dropzone-title">Drop your PDF here</p>
+              <p class="dropzone-subtitle">or click to choose files</p>
+            </div>
+          </div>
+        </div>
+        <div id="file-list" class="file-list"></div>
+
+        <template id="file-tile-template">
+          <div class="file-tile">
+            <div class="file-header">
+              <div class="file-meta">
+                <p class="file-name"></p>
+                <p class="file-status"></p>
+              </div>
+              <button class="ghost file-remove" type="button">Remove</button>
+            </div>
+
+            <div class="file-actions">
+              <a class="cta download-link" href="#" download hidden>Download CSV</a>
+              <button class="ghost preview-pdf-btn" type="button" hidden>Preview PDF</button>
+              <button class="ghost preview-csv-btn" type="button" hidden>Preview CSV</button>
+              <div class="password-inline" hidden>
+                <label>PDF password</label>
+                <input type="password" placeholder="Enter password" />
+                <button class="cta password-submit" type="button">Unlock</button>
+              </div>
+            </div>
+            <div class="preview-panel" hidden>
+              <div class="preview-header">
+                <p class="preview-title">Preview</p>
+                <button class="ghost preview-close" type="button">Close</button>
+              </div>
+              <div class="preview-body">
+                <div class="preview-pdf-view" hidden></div>
+                <div class="preview-csv-view" hidden></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </section>
+      <p class="footnote">* All processing happens locally. Your statement never leaves the browser.</p>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
