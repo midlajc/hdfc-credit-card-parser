@@ -1,56 +1,41 @@
-# HDFC Credit Card Statement Parser (Web)
+# HDFC Statement Parser
 
-A client-only web app to parse HDFC credit card statement PDFs into CSV. Everything runs in your browser.
+Convert HDFC credit card statement PDFs into CSV directly in your browser.
 
-## Run
+## Open App
 
-Use any static file server:
+- https://hdfc-parser.midlajc.dev/
 
-```bash
-python3 -m http.server 8000
-```
+## What It Supports
 
-Open `http://localhost:8000`.
+- HDFC credit card statement PDFs
+- Old and new statement layouts (auto-detected)
+- Password-protected PDFs (asks for password)
+- Multiple PDF uploads at once
+- CSV download per statement
+- PDF and CSV preview inside the app
 
-## Install As PWA
+## PWA Features
 
-- Open the app in a Chromium browser.
-- Use the browser install prompt (`Install app`) to add it to your phone or desktop.
-- Keep the app installed if you want to use PDF forwarding from the share sheet.
+- Installable on mobile and desktop
+- Share PDF to app on supported mobile browsers
+- macOS desktop file open support via `Open With -> HDFC Parser`
+- Offline app shell support after first load
 
-## How It Works
+## How To Use
 
-- Drop one or more PDF statements into the uploader.
-- Each file is parsed automatically:
-  - The app tries the **old** format first.
-  - If no rows are detected, it retries with the **new** format.
-- If a PDF is encrypted, you will be prompted for a password.
-- Download the CSV from each file tile.
+1. Open https://hdfc-parser.midlajc.dev/.
+2. Upload PDF(s) using drag-and-drop or file picker.
+3. If prompted, enter the PDF password.
+4. Wait for parsing to complete.
+5. Download the generated CSV.
 
-## Forward PDF To App
+## Privacy
 
-- From a supported mobile browser/share sheet, share a PDF to `HDFC Parser`.
-- The PWA receives the file via Web Share Target and opens it automatically.
-- The shared PDF is consumed once imported, so refreshes do not duplicate it.
-- On macOS, use Finder `Open With -> HDFC Parser` after installing the PWA to pass PDFs directly.
-
-## Preview
-
-- **Preview PDF**: Opens the PDF in an embedded frame (may not work for encrypted PDFs).
-- **Preview CSV**: Shows a paginated table of parsed rows.
-
-## Files
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `manifest.webmanifest`
-- `service-worker.js`
-- `icons/`
+- All processing happens locally in your browser.
+- PDF files are not uploaded to a server by this app.
 
 ## Notes
 
-- Parsing is heuristic and may vary by statement layout.
-- CSV previews are paginated for performance (20 rows per page by default).
-- Web Share Target requires an installed PWA and secure context (`https://` or localhost).
-- Desktop share-sheet support varies by browser; file handler (`Open With`) is more reliable on macOS.
+- Parsing is heuristic and depends on statement text layout.
+- If you update/reinstall the PWA, relaunch the app before testing share/open flows.
