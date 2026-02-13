@@ -32,6 +32,7 @@ Open `http://localhost:8000`.
 - From a supported mobile browser/share sheet, share a PDF to `HDFC Parser`.
 - The PWA receives the file via Web Share Target and opens it automatically.
 - The shared PDF is consumed once imported, so refreshes do not duplicate it.
+- On macOS, use Finder `Open With -> HDFC Parser` after installing the PWA to pass PDFs directly.
 
 ## Preview
 
@@ -52,3 +53,4 @@ Open `http://localhost:8000`.
 - Parsing is heuristic and may vary by statement layout.
 - CSV previews are paginated for performance (20 rows per page by default).
 - Web Share Target requires an installed PWA and secure context (`https://` or localhost).
+- Desktop share-sheet support varies by browser; file handler (`Open With`) is more reliable on macOS.

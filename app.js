@@ -15,6 +15,13 @@ const TIME_RE = /(\d{2}:\d{2})/;
 const FOREX_RE = /\b(?<currency>[A-Z]{3})\b\s+(?<amount>[\d,]+(?:\.\d{1,2})?)\s*$/;
 const PAGE_SIZE = 20;
 
+function isPdfFile(file) {
+  if (!file) return false;
+  const mimeType = (file.type || "").toLowerCase();
+  const name = (file.name || "").toLowerCase();
+  return mimeType === "application/pdf" || name.endsWith(".pdf");
+}
+
 function cleanAmount(str) {
   if (!str) return null;
   const match = str.match(/([\d,]+(?:\.\d{1,2})?)/);
@@ -432,7 +439,7 @@ function createTile(file) {
 function acceptFiles(fileListLike) {
   const files = Array.from(fileListLike);
   files.forEach((file) => {
-    if (!file || !file.name.toLowerCase().endsWith(".pdf")) {
+    if (!isPdfFile(file)) {
       return;
     }
     createTile(file);
@@ -469,6 +476,44 @@ async function registerServiceWorker() {
   } catch (err) {
     console.error("Service worker registration failed:", err);
   }
+}
+
+function registerFileLaunchConsumer() {
+  if (!("launchQueue" in window) || typeof window.launchQueue.setConsumer !== "function") {
+    return;
+  }
+
+  window.launchQueue.setConsumer(async (launchParams) => {
+    if (!launchParams?.files?.length) {
+      return;
+    }
+
+    try {
+      const openedFiles = [];
+
+      for (const fileHandle of launchParams.files) {
+        if (!fileHandle || typeof fileHandle.getFile !== "function") {
+          continue;
+        }
+        const file = await fileHandle.getFile();
+        if (isPdfFile(file)) {
+          openedFiles.push(file);
+        }
+      }
+
+      if (openedFiles.length) {
+        acceptFiles(openedFiles);
+        setSharedStatus(
+          `Imported ${openedFiles.length} PDF${openedFiles.length === 1 ? "" : "s"} from file open.`,
+        );
+      } else {
+        setSharedStatus("No PDF file was provided from file open.", true);
+      }
+    } catch (err) {
+      setSharedStatus("Could not open file from the system handler.", true);
+      console.error("File handler import failed:", err);
+    }
+  });
 }
 
 async function waitForServiceWorkerControl(timeoutMs = 5000) {
@@ -574,6 +619,7 @@ async function importSharedFilesIfAny() {
 }
 
 registerServiceWorker();
+registerFileLaunchConsumer();
 importSharedFilesIfAny();
 
 fileInput.addEventListener("change", (event) => {

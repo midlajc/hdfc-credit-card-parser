@@ -1,4 +1,4 @@
-const APP_CACHE = "hdfc-parser-app-v2";
+const APP_CACHE = "hdfc-parser-app-v3";
 const SHARE_CACHE = "hdfc-parser-share-v1";
 const PENDING_META_KEY = "/__shared__/pending.json";
 
