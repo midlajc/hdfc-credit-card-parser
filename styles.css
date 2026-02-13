@@ -217,6 +217,7 @@ input[type="password"]:focus {
 .preview-body {
   display: grid;
   gap: 12px;
+  min-width: 0;
 }
 
 .preview-body iframe,
@@ -229,9 +230,24 @@ input[type="password"]:focus {
 }
 
 .csv-table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
+}
+
+.preview-csv-view {
+  min-width: 0;
+}
+
+.csv-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
 }
 
 .csv-table th,

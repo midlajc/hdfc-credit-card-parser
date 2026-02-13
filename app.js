@@ -222,6 +222,8 @@ async function parseWithFormat(lines, format) {
 function renderCsvPreview(container, rows, format) {
   container.innerHTML = "";
   const cols = getColumnsForFormat(format);
+  const tableScroll = document.createElement("div");
+  tableScroll.className = "csv-table-scroll";
   const table = document.createElement("table");
   table.className = "csv-table";
 
@@ -246,7 +248,8 @@ function renderCsvPreview(container, rows, format) {
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);
-  container.appendChild(table);
+  tableScroll.appendChild(table);
+  container.appendChild(tableScroll);
 }
 
 function createTile(file) {
