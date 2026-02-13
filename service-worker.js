@@ -1,4 +1,4 @@
-const APP_CACHE = "hdfc-parser-app-v1";
+const APP_CACHE = "hdfc-parser-app-v2";
 const SHARE_CACHE = "hdfc-parser-share-v1";
 const PENDING_META_KEY = "/__shared__/pending.json";
 
@@ -11,6 +11,8 @@ const APP_SHELL = [
   "/favicon.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
+  "/icons/icon-1024.png",
+  "/icons/apple-touch-icon-180.png",
 ];
 
 self.addEventListener("install", (event) => {
