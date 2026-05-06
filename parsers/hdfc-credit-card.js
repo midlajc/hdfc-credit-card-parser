@@ -35,7 +35,7 @@ function parseNewLine(rawLine) {
 
   let txnType = "Dr";
   let amountStr = "";
-  let splitIndex = rest.lastIndexOf("+ C");
+  let splitIndex = rest.search(/\+\s+C(?=\s)/);
   if (splitIndex !== -1) {
     txnType = "Cr";
     amountStr = rest.slice(splitIndex + 3).trim();
