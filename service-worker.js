@@ -1,4 +1,4 @@
-const APP_CACHE = "stmt-tools-app-v4";
+const APP_CACHE = "stmt-tools-app-v5";
 const SHARE_CACHE = "stmt-tools-share-v1";
 const PENDING_META_KEY = "/__shared__/pending.json";
 
@@ -14,6 +14,8 @@ const APP_SHELL = [
   "/icons/icon-1024.png",
   "/icons/apple-touch-icon-180.png",
   "/parsers/hdfc-credit-card.js",
+  "/parsers/hdfc-bank.js",
+  "/parsers/rbl-bank.js",
 ];
 
 self.addEventListener("install", (event) => {
